@@ -1,7 +1,10 @@
 import feedparser
 from feedgen.feed import FeedGenerator
 
-SOURCE = "http://www.srf.ch/news/bnf/rss/1890"
+SOURCES = [
+    "http://www.srf.ch/news/bnf/rss/1890",
+    "https://www.nzz.ch/schweiz.rss",
+]
 
 EXCLUDE = [
     "crans montana",
@@ -16,6 +19,22 @@ EXCLUDE = [
     "durchfahrtsverbot",
     "toxische männlichkeit",
     "brian keller",
+    "häusliche gewalt",
+    "flugticket",
+    "flugtickets",
+    "flugunfall",
+    "bergsturz",
+    "herzklinik",
+    "usz",
+    "notlandung",
+    "japankäfer",
+    "street parade",
+    "katholische kirche",
+    "wolfabschuss",
+    "femizid",
+    "frauenmord",
+    "frauenmörder",
+    "abstimmungs-arena",
 ]
 
 HIGHLIGHT = [
@@ -23,36 +42,37 @@ HIGHLIGHT = [
     "mass-voll",
 ]
 
-feed = feedparser.parse(SOURCE)
-
 fg = FeedGenerator()
-fg.title("Filtered SRF Schweiz")
-fg.link(href=SOURCE)
-fg.description("SRF Schweiz feed filtered by custom keyword rules")
+fg.title("Filtered Swiss News")
+fg.link(href="https://github.com/Orythus/rss-filter")
+fg.description("Filtered Swiss RSS feeds")
 fg.language("de")
 
-for entry in feed.entries:
-    title = entry.get("title", "")
-    summary = entry.get("summary", "")
-    link = entry.get("link", "")
+for source in SOURCES:
+    feed = feedparser.parse(source)
 
-    text = f"{title} {summary}".lower()
+    for entry in feed.entries:
+        title = entry.get("title", "")
+        summary = entry.get("summary", "")
+        link = entry.get("link", "")
 
-    # Skip excluded articles
-    if any(word in text for word in EXCLUDE):
-        continue
+        text = f"{title} {summary}".lower()
 
-    # Highlight potentially interesting articles
-    if any(word in text for word in HIGHLIGHT):
-        title = "[INTERESSANT] " + title
+        # Skip excluded articles
+        if any(word in text for word in EXCLUDE):
+            continue
 
-    fe = fg.add_entry()
-    fe.title(title)
-    fe.link(href=link)
-    fe.description(summary)
+        # Highlight potentially interesting articles
+        if any(word in text for word in HIGHLIGHT):
+            title = "[INTERESSANT] " + title
 
-    if "published" in entry:
-        fe.pubDate(entry.published)
+        fe = fg.add_entry()
+        fe.title(title)
+        fe.link(href=link)
+        fe.description(summary)
+
+        if "published" in entry:
+            fe.pubDate(entry.published)
 
 fg.rss_file("filtered_srf.xml")
 print("Done. Created filtered_srf.xml")
