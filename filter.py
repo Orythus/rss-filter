@@ -67,7 +67,7 @@ for source in SOURCES:
             title = "[INTERESSANT] " + title
 
         fe = fg.add_entry()
-        fe.title(title)
+	fe.title(f"[{source}] {title}")
         fe.link(href=link)
         fe.description(summary)
 
