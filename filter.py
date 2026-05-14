@@ -67,7 +67,16 @@ for source in SOURCES:
             title = "[INTERESSANT] " + title
 
         fe = fg.add_entry()
-	fe.title(title)		
+
+        source_label = ""
+
+        if "srf.ch" in source:
+            source_label = "SRF"
+        elif "nzz.ch" in source:
+            source_label = "NZZ"
+
+        fe.title(f"[{source_label}] {title}")
+
         fe.link(href=link)
         fe.description(summary)
 
