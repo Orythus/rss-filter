@@ -35,6 +35,16 @@ EXCLUDE = [
     "frauenmord",
     "frauenmörder",
     "abstimmungs-arena",
+    "eishockey",  
+    "schweizer-meister",  
+    "wolfbestand",  
+    "grossbrand",  
+    "brandstifter",  
+    "brandstiftung",  
+    "hausbrand",  
+    "hantavirus",  
+    "kerzers",  
+    "zoo-zürich",
 ]
 
 HIGHLIGHT = [
