@@ -93,5 +93,5 @@ for source in SOURCES:
         if "published" in entry:
             fe.pubDate(entry.published)
 
-fg.rss_file("filtered_srf.xml")
-print("Done. Created filtered_srf.xml")
+fg.rss_file("filtered_srf_nzz.xml")
+print("Done. Created filtered_srf_nzz.xml")
