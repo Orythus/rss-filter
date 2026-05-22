@@ -50,6 +50,15 @@ EXCLUDE = [
 HIGHLIGHT = [
     "massvoll",
     "mass-voll",
+    "junge tat",
+    "hooligan",
+    "hooligans",
+    "ultra",
+    "ultras",
+    "radikal",
+    "radikale",
+    "extremist",
+    "extremisten",
 ]
 
 fg = FeedGenerator()
@@ -74,7 +83,7 @@ for source in SOURCES:
 
         # Highlight potentially interesting articles
         if any(word in text for word in HIGHLIGHT):
-            title = "[INTERESSANT] " + title
+            title = "[HL] " + title
 
         fe = fg.add_entry()
 
@@ -93,5 +102,5 @@ for source in SOURCES:
         if "published" in entry:
             fe.pubDate(entry.published)
 
-fg.rss_file("filtered_srf_nzz.xml")
-print("Done. Created filtered_srf_nzz.xml")
+fg.rss_file("filtered_srf.xml")
+print("Done. Created filtered_srf.xml")
