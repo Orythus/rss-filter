@@ -97,6 +97,7 @@ for source in SOURCES:
         fe.title(f"[{source_label}] {title}")
 
         fe.link(href=link)
+        fe.guid(link, permalink=True)
         fe.description(summary)
 
         if "published" in entry:
