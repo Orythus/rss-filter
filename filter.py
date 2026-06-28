@@ -210,6 +210,9 @@ EXCLUDE = [
     "weltmeisterschaft",
     "quaggamuschel",
     "quaggamuscheln",
+    "wahlen baselland",
+    "open air st. gallen",
+    "kurzmeldungen",
 ]
 
 HIGHLIGHT = [
@@ -238,6 +241,8 @@ fg.link(href="https://github.com/Orythus/rss-filter")
 fg.description("Filtered Swiss RSS feeds")
 fg.language("de")
 
+seen_links = set()
+
 for source in SOURCES:
     feed = feedparser.parse(source)
 
@@ -245,6 +250,11 @@ for source in SOURCES:
         title = entry.get("title", "")
         summary = entry.get("summary", "")
         link = entry.get("link", "")
+
+        if link in seen_links:
+            continue
+
+        seen_links.add(link)
 
         text = f"{title} {summary}".lower()
 
